@@ -1,5 +1,3 @@
-import ymaps from "ymaps"
-
 import { MapCustom } from "./MapCustom"
 import { User } from "./User"
 import { Company } from "./Company"
@@ -7,11 +5,8 @@ import { Company } from "./Company"
 const user = new User()
 const company = new Company()
 
-async function loadMap(): Promise<void> {
-  const maps = await ymaps.load()
-
+ymaps.ready(function () {
   const map = new MapCustom({
-    maps,
     el: "map",
     config: {
       center: [0, 0],
@@ -21,10 +16,4 @@ async function loadMap(): Promise<void> {
 
   map.addMarker(user)
   map.addMarker(company)
-}
-
-try {
-  loadMap()
-} catch (err) {
-  console.log(err)
-}
+})
